@@ -20,6 +20,13 @@ Let 35.236.114.144 be the machine IP address, pass the address as an argument to
 ```
 If all the mentioned requirements are met, after the script finished execution (couple of minutes) you should be able to access Jenkins UI by entering the IP address in you favorite browser.
 
+In order to unlock Jenkins we need the initial admin password, you can get it by executing the following command from your local machine:
+
+```bash
+ssh 35.236.114.144 docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword 
+```
+
+
 ### Brief explanation
 The following bash commands are executed via SSH connection to the remote machine:
 
@@ -35,6 +42,7 @@ Port 8080 of the Jenkins container is mapped to 80 for convenient access via a w
 * Host input validation
 * Bash commands exit status checks
 * Finer configuration of Jenkins using custom Dockerfile
+* Automatically get the initial admin password once Jenkins server is up
 
 ## References
 [Installing docker on Debian](https://docs.docker.com/install/linux/docker-ce/debian/)
