@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
 REMOTE_HOST=$1
+JENKINS_EXTERNAL_PORT=${2:-8080}
 
 init_tfvars () {
+    rm terraform.tfvars
     touch terraform.tfvars
-    echo docker_host=\"ssh://${REMOTE_HOST}\" > terraform.tfvars
+    echo docker_host=\"ssh://${REMOTE_HOST}\" >> terraform.tfvars
+    echo jenkins_external=${JENKINS_EXTERNAL_PORT} >> terraform.tfvars
 }
 
 install_docker_on_remote () {

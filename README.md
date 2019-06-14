@@ -17,7 +17,7 @@ Let 34.73.82.218 be the machine IP address and 8080 the exposed port.
 
 Pass the IP address as an argument to the script.
 
-_Note that if your exposed port differs from 8080, change the value in the variables.tf file before running the script._
+_Note that if your exposed port differs from 8080, pass it as the second argument._
 
 ```bash
 ./solution.sh 34.73.82.218
