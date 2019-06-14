@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
-HOST=$1
+REMOTE_HOST=$1
 
 init_tfvars () {
-    sed -i '.bak' s#^docker_host.*#docker_host=\"tcp://${HOST}:2375\"# terraform.tfvars
+    touch terraform.tfvars
+    echo docker_host=\"tcp://${REMOTE_HOST}:2375\" >> terraform.tfvars
 }
 
 install_docker_on_remote () {
-    ssh ${HOST} << EOF
+    ssh ${REMOTE_HOST} << EOF
     sudo apt-get -y update
 
     sudo apt-get -y install \
@@ -31,11 +32,13 @@ install_docker_on_remote () {
 
     sudo groupadd docker
     sudo usermod -aG docker $USER
+
+    sudo systemctl enable docker
 EOF
 }
 
 configure_remote_docker_api () {
-    ssh ${HOST} << EOF
+    ssh ${REMOTE_HOST} << EOF
     sudo sed -i "s#^ExecStart=.*#ExecStart=/usr/bin/dockerd -H fd:// -H=tcp://0.0.0.0:2375#" \
     /lib/systemd/system/docker.service
 
