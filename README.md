@@ -23,14 +23,13 @@ _Note that if your exposed port differs from 8080, change the value in the varia
 ./solution.sh 34.73.82.218
 ```
 
-If all the mentioned requirements are met, after the script finished execution (few minutes) you should be able to access Jenkins UI by entering 34.73.82.218:8080 in you favorite browser.
+If all the mentioned requirements are met, after the script finished execution (few minutes) you should be able to access [Jenkins UI](https://ibb.co/6vc0zfQ) by entering [34.73.82.218:8080](http://34.73.82.218:8080) in you favorite browser.
 
 In order to unlock Jenkins we need the initial admin password, you can get it by executing the following command from your local machine:
 
 ```bash
 ssh 34.73.82.218 docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword 
 ```
-[Jenkins running](https://ibb.co/6vc0zfQ)
 
 ### Brief explanation
 The solution.sh script executes sets of bash commands via SSH connection to the remote machine, in general:
