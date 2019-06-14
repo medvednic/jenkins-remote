@@ -4,7 +4,7 @@ REMOTE_HOST=$1
 
 init_tfvars () {
     touch terraform.tfvars
-    echo docker_host=\"tcp://${REMOTE_HOST}:2375\" > terraform.tfvars
+    echo docker_host=\"ssh://${REMOTE_HOST}\" > terraform.tfvars
 }
 
 install_docker_on_remote () {
@@ -37,24 +37,6 @@ install_docker_on_remote () {
 EOF
 }
 
-configure_remote_docker_api () {
-    ssh ${REMOTE_HOST} << EOF
-    sudo sed -i "s#^ExecStart=.*#ExecStart=/usr/bin/dockerd -H fd:// -H=tcp://0.0.0.0:2375#" \
-    /lib/systemd/system/docker.service
-
-    sudo systemctl daemon-reload
-    sudo systemctl restart docker.service
-EOF
-
-    echo Waiting for Docker API to become avaliable on remote host ${HOST}
-
-    until $(curl --output /dev/null --silent --fail ${REMOTE_HOST}:2375/containers/json); do
-        printf '.'
-        sleep 5
-    done
-
-}
-
 spin_up_jenkins_container_on_remote () {
     terraform init
     terraform plan
@@ -63,5 +45,4 @@ spin_up_jenkins_container_on_remote () {
 
 init_tfvars
 install_docker_on_remote
-configure_remote_docker_api
 spin_up_jenkins_container_on_remote

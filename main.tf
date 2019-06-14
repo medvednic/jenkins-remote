@@ -8,7 +8,7 @@ resource "docker_container" "jenkins" {
 
   ports {
     internal = 8080
-    external = 80
+    external = "${var.jenkins_external}"
   }
 
   ports {

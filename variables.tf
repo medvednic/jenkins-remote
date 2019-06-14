@@ -7,3 +7,8 @@ variable "container_name" {
   description = "Container name"
   default = "jenkins"
 }
+
+variable "jenkins_external" {
+  description = "Jenkins external port"
+  default = 8080
+}
