@@ -44,3 +44,5 @@ Port 8080 of the Jenkins container is mapped to 80 for convenient access via a w
 [How to Enable Docker Remote REST API on Docker Host](http://www.littlebigextra.com/how-to-enable-remote-rest-api-on-docker-host/)
 
 [Docker Provider for Terraform](http://www.littlebigextra.com/how-to-enable-remote-rest-api-on-docker-host/)
+
+[Jenkins Docker Image](https://github.com/jenkinsci/docker/blob/master/README.md)
