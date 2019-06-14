@@ -3,40 +3,42 @@
 This repository contains scripts for creating a Jenkins server on a remote machine using Terraform and bash commands via SSH.
 ## Requirements 
 
-* OS capable of executing bash
+* OS capable of executing bash (tested on macOS 10.14.5)
 
 * [Terraform](https://www.terraform.io/) (tested with v0.11.11)
 
-* Remote Debian Strech machine which has your public ssh key
+* Remote Debian Strech machine which has your public ssh key, and at least one tcp port exposed
 
 * External IP address of the remote machine
 
 
 ## Usage
-Let 35.236.114.144 be the machine IP address, pass the address as an argument to the script.
+Let 34.73.82.218 be the machine IP address and 8080 the exposed port. 
+
+Pass the IP address as an argument to the script.
+
+_Note that if your exposed port differs from 8080, change the value in the variables.tf file before running the script._
 
 ```bash
-./solution.sh 35.236.114.144 
+./solution.sh 34.73.82.218
 ```
-If all the mentioned requirements are met, after the script finished execution (couple of minutes) you should be able to access Jenkins UI by entering the IP address in you favorite browser.
+
+If all the mentioned requirements are met, after the script finished execution (few minutes) you should be able to access Jenkins UI by entering 34.73.82.218:8080 in you favorite browser.
 
 In order to unlock Jenkins we need the initial admin password, you can get it by executing the following command from your local machine:
 
 ```bash
-ssh 35.236.114.144 docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword 
+ssh 34.73.82.218 docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword 
 ```
 
 
 ### Brief explanation
-The following bash commands are executed via SSH connection to the remote machine:
+The solution.sh script executes sets of bash commands via SSH connection to the remote machine, in general:
 
-1. Docker CE is installed on the remote machine using apt-get.
+1. Docker-CE is installed on the remote machine using apt-get.
 2. Docker is configured to start on OS boot.
-3. Docker service is configured to accept requests from remote hosts by  altering the docker.service file.
 
-Terraform is executed from the local machine to spin up docker container which would run Jenkins on the remote machine (host property of docker terraform provider).
-
-Port 8080 of the Jenkins container is mapped to 80 for convenient access via a web browser.
+Terraform is executed from the local machine to spin up the docker container which would run Jenkins on the remote machine (ocker provider also uses ssh host).
 
 ### Things which can be improved
 * Host input validation
@@ -48,8 +50,6 @@ Port 8080 of the Jenkins container is mapped to 80 for convenient access via a w
 [Installing docker on Debian](https://docs.docker.com/install/linux/docker-ce/debian/)
 
 [Docker post-installation steps for linux](https://docs.docker.com/install/linux/linux-postinstall/)
-
-[How to Enable Docker Remote REST API on Docker Host](http://www.littlebigextra.com/how-to-enable-remote-rest-api-on-docker-host/)
 
 [Docker Provider for Terraform](http://www.littlebigextra.com/how-to-enable-remote-rest-api-on-docker-host/)
 
