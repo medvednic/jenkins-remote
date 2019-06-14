@@ -45,16 +45,23 @@ configure_remote_docker_api () {
     sudo systemctl daemon-reload
     sudo systemctl restart docker.service
 EOF
+
+    echo Waiting for Docker API to become avaliable on remote host ${HOST}
+
+    until $(curl --output /dev/null --silent --fail ${REMOTE_HOST}:2375/containers/json); do
+        printf '.'
+        sleep 5
+    done
+
 }
 
 spin_up_jenkins_container_on_remote () {
     terraform init
     terraform plan
-    terraform apply
+    terraform apply -auto-approve
 }
 
 init_tfvars
 install_docker_on_remote
 configure_remote_docker_api
-sleep 5
 spin_up_jenkins_container_on_remote
