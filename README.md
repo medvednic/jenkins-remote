@@ -9,7 +9,7 @@ This repository contains scripts for creating a Jenkins server on a remote machi
 
 * Remote Debian Strech machine which has your public ssh key
 
-* External IP address of the machine
+* External IP address of the remote machine
 
 
 ## Usage
