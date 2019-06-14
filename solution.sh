@@ -4,7 +4,7 @@ REMOTE_HOST=$1
 
 init_tfvars () {
     touch terraform.tfvars
-    echo docker_host=\"tcp://${REMOTE_HOST}:2375\" >> terraform.tfvars
+    echo docker_host=\"tcp://${REMOTE_HOST}:2375\" > terraform.tfvars
 }
 
 install_docker_on_remote () {
