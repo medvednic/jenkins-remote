@@ -30,7 +30,7 @@ In order to unlock Jenkins we need the initial admin password, you can get it by
 ```bash
 ssh 34.73.82.218 docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword 
 ```
-
+[Jenkins running](https://ibb.co/6vc0zfQ)
 
 ### Brief explanation
 The solution.sh script executes sets of bash commands via SSH connection to the remote machine, in general:
