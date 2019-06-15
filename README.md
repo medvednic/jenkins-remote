@@ -37,7 +37,7 @@ The solution.sh script executes sets of bash commands via SSH connection to the 
 1. Docker-CE is installed on the remote machine using apt-get.
 2. Docker is configured to start on OS boot.
 
-Terraform is executed from the local machine to spin up the docker container which would run Jenkins on the remote machine (ocker provider also uses ssh host).
+Terraform is executed from the local machine to spin up the docker container which would run Jenkins on the remote machine (docker provider also uses ssh host).
 
 ### Things which can be improved
 * Host input validation
@@ -50,6 +50,6 @@ Terraform is executed from the local machine to spin up the docker container whi
 
 [Docker post-installation steps for linux](https://docs.docker.com/install/linux/linux-postinstall/)
 
-[Docker Provider for Terraform](http://www.littlebigextra.com/how-to-enable-remote-rest-api-on-docker-host/)
+[Docker Provider for Terraform](https://www.terraform.io/docs/providers/docker/)
 
 [Jenkins Docker Image](https://github.com/jenkinsci/docker/blob/master/README.md)
